@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/globals/app_assets.dart';
+import 'package:my_portfolio/globals/constant_list.dart';
 import 'package:my_portfolio/helper%20class/helper_class.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
@@ -17,12 +19,12 @@ class _MyPortfolioState extends State<MyPortfolio> {
   final onH0verEffect = Matrix4.identity()..scale(1.0);
 
   List images = <String>[
-    AppAssets.work1,
-    AppAssets.work2,
-    AppAssets.work1,
-    AppAssets.work2,
-    AppAssets.work1,
-    AppAssets.work2,
+    AppAssets.komiku,
+    AppAssets.web,
+    AppAssets.comic,
+    AppAssets.restaurant,
+    AppAssets.ticket,
+    AppAssets.qr,
   ];
 
   var hoveredIndex;
@@ -119,26 +121,47 @@ class _MyPortfolioState extends State<MyPortfolio> {
                     child: Column(
                       children: [
                         Text(
-                          'App Development',
+                          ConstantList.urlList[index]["name"]!,
                           style: AppTextStyles.montserratStyle(
                               color: Colors.black87, fontSize: 20),
                         ),
                         Constants.sizedBox(height: 15.0),
                         Text(
-                          'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
+                          ConstantList.urlList[index]["des"]!,
                           style:
                               AppTextStyles.normalStyle(color: Colors.black87),
                           textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
                         ),
                         Constants.sizedBox(height: 30.0),
-                        CircleAvatar(
-                          maxRadius: 25,
-                          backgroundColor: Colors.white,
-                          child: Image.asset(
-                            AppAssets.share,
-                            width: 25,
-                            height: 25,
-                            fit: BoxFit.fill,
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: ConstantList.logos[index]
+                                .map((String e) => CircleAvatar(
+                                      maxRadius: 25,
+                                      backgroundColor: Colors.white,
+                                      child: Image.asset(
+                                        e,
+                                        width: 25,
+                                        height: 25,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ))
+                                .toList()),
+                        InkWell(
+                          onTap: () {
+                            _launchUrl(ConstantList.urlList[index]['url']!);
+                          },
+                          child: CircleAvatar(
+                            maxRadius: 25,
+                            backgroundColor: Colors.white,
+                            child: Image.asset(
+                              AppAssets.share,
+                              width: 25,
+                              height: 25,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         )
                       ],
@@ -170,5 +193,15 @@ class _MyPortfolioState extends State<MyPortfolio> {
         ),
       ),
     );
+  }
+}
+
+Future<void> _launchUrl(String url) async {
+  if (!await launchUrl(
+    Uri.parse(url),
+    mode: LaunchMode.inAppWebView,
+    webViewConfiguration: const WebViewConfiguration(enableJavaScript: false),
+  )) {
+    throw Exception('Could not launch $url');
   }
 }

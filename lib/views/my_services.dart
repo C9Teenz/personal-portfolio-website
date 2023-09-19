@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/globals/app_assets.dart';
-import 'package:my_portfolio/globals/app_buttons.dart';
 import 'package:my_portfolio/globals/app_colors.dart';
 import 'package:my_portfolio/globals/constants.dart';
 import 'package:my_portfolio/helper%20class/helper_class.dart';
@@ -21,7 +20,6 @@ class _MyServicesState extends State<MyServices> {
   final onHoverActive = Matrix4.identity()..translate(0, -10, 0);
   final onHoverRemove = Matrix4.identity()..translate(0, 0, 0);
 
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -39,10 +37,11 @@ class _MyServicesState extends State<MyServices> {
               });
             },
             child: buildAnimatedContainer(
-              title: 'App Development',
-              asset: AppAssets.code,
-              hover: isApp,
-            ),
+                title: 'Flutter Development',
+                asset: AppAssets.code,
+                hover: isApp,
+                content:
+                    "We provide end-to-end Flutter development services, from custom app creation for iOS and Android to UI/UX design, maintenance, integration, quality assurance, and more. Our aim is to deliver tailored Flutter solutions for successful mobile apps."),
           ),
           Constants.sizedBox(height: 24.0),
           InkWell(
@@ -53,25 +52,12 @@ class _MyServicesState extends State<MyServices> {
               });
             },
             child: buildAnimatedContainer(
-              title: 'Graphic Designing',
-              asset: AppAssets.brush,
-              hover: isGraphic,
-            ),
+                title: 'BackEnd Development',
+                asset: AppAssets.brush,
+                hover: isGraphic,
+                content:
+                    "As a backend development service provider, I can create robust, scalable, and efficient server-side solutions tailored to your specific needs, ensuring seamless functionality and optimal performance for your applications."),
           ),
-          Constants.sizedBox(height: 24.0),
-          InkWell(
-            onTap: () {},
-            onHover: (value) {
-              setState(() {
-                isDataAnalyst = value;
-              });
-            },
-            child: buildAnimatedContainer(
-              title: 'Digital Marketing',
-              asset: AppAssets.analyst,
-              hover: isDataAnalyst,
-            ),
-          )
         ],
       ),
       tablet: Column(
@@ -90,10 +76,11 @@ class _MyServicesState extends State<MyServices> {
                   });
                 },
                 child: buildAnimatedContainer(
-                  title: 'App Development',
-                  asset: AppAssets.code,
-                  hover: isApp,
-                ),
+                    title: 'Flutter Development',
+                    asset: AppAssets.code,
+                    hover: isApp,
+                    content:
+                        "We provide end-to-end Flutter development services, from custom app creation for iOS and Android to UI/UX design, maintenance, integration, quality assurance, and more. Our aim is to deliver tailored Flutter solutions for successful mobile apps."),
               ),
               Constants.sizedBox(width: 24.0),
               InkWell(
@@ -104,29 +91,14 @@ class _MyServicesState extends State<MyServices> {
                   });
                 },
                 child: buildAnimatedContainer(
-                  title: 'Graphic Designing',
-                  asset: AppAssets.brush,
-                  hover: isGraphic,
-                ),
+                    title: 'BackEnd Development',
+                    asset: AppAssets.brush,
+                    hover: isGraphic,
+                    content:
+                        "As a backend development service provider, I can create robust, scalable, and efficient server-side solutions tailored to your specific needs, ensuring seamless functionality and optimal performance for your applications."),
               ),
             ],
           ),
-          Constants.sizedBox(height: 26.0),
-          InkWell(
-            onTap: () {},
-            onHover: (value) {
-              setState(() {
-                isDataAnalyst = value;
-              });
-            },
-            child: buildAnimatedContainer(
-              title: 'Digital Marketing',
-              asset: AppAssets.analyst,
-              hover: isDataAnalyst,
-              width: 725.0,
-              hoverWidth: 735.0,
-            ),
-          )
         ],
       ),
       desktop: Column(
@@ -145,10 +117,11 @@ class _MyServicesState extends State<MyServices> {
                   });
                 },
                 child: buildAnimatedContainer(
-                  title: 'App Development',
-                  asset: AppAssets.code,
-                  hover: isApp,
-                ),
+                    title: 'Flutter Development',
+                    asset: AppAssets.code,
+                    hover: isApp,
+                    content:
+                        "We provide end-to-end Flutter development services, from custom app creation for iOS and Android to UI/UX design, maintenance, integration, quality assurance, and more. Our aim is to deliver tailored Flutter solutions for successful mobile apps."),
               ),
               Constants.sizedBox(width: 24.0),
               InkWell(
@@ -159,25 +132,12 @@ class _MyServicesState extends State<MyServices> {
                   });
                 },
                 child: buildAnimatedContainer(
-                  title: 'Graphic Designing',
-                  asset: AppAssets.brush,
-                  hover: isGraphic,
-                ),
+                    title: 'BackEnd Development',
+                    asset: AppAssets.brush,
+                    hover: isGraphic,
+                    content:
+                        "As a backend development service provider, I can create robust, scalable, and efficient server-side solutions tailored to your specific needs, ensuring seamless functionality and optimal performance for your applications."),
               ),
-              Constants.sizedBox(width: 24.0),
-              InkWell(
-                onTap: () {},
-                onHover: (value) {
-                  setState(() {
-                    isDataAnalyst = value;
-                  });
-                },
-                child: buildAnimatedContainer(
-                  title: 'Digital Marketing',
-                  asset: AppAssets.analyst,
-                  hover: isDataAnalyst,
-                ),
-              )
             ],
           ),
         ],
@@ -210,6 +170,7 @@ class _MyServicesState extends State<MyServices> {
     required String title,
     required String asset,
     required bool hover,
+    required String content,
     double width = 350,
     double hoverWidth = 360,
   }) {
@@ -250,13 +211,11 @@ class _MyServicesState extends State<MyServices> {
           ),
           Constants.sizedBox(height: 12.0),
           Text(
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.'
-            ' The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,',
+            content,
             style: AppTextStyles.normalStyle(fontSize: 14.0),
             textAlign: TextAlign.center,
           ),
           Constants.sizedBox(height: 20.0),
-          AppButtons.buildMaterialButton(buttonName: 'Read More', onTap: () {})
         ],
       ),
     );

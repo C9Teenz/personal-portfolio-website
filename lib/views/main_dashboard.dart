@@ -19,8 +19,10 @@ class MainDashBoard extends StatefulWidget {
 
 class _MainDashBoardState extends State<MainDashBoard> {
   final ItemScrollController _itemScrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
-  final ScrollOffsetListener scrollOffsetListener = ScrollOffsetListener.create();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
   final onMenuHover = Matrix4.identity()..scale(1.0);
   final menuItems = <String>[
     'Home',
@@ -30,7 +32,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
     'Contact',
   ];
 
-  var menuIndex = 0;
+  int menuIndex = 0;
 
   final screensList = const <Widget>[
     HomePage(),
@@ -142,22 +144,21 @@ class _MainDashBoardState extends State<MainDashBoard> {
           },
         ),
       ),
-      body: Scrollbar(
-        trackVisibility: true,
-        thumbVisibility: true,
-        thickness: 8,
-        interactive: true,
-        controller: yourScrollController,
-        child: ScrollablePositionedList.builder(
-          itemCount: screensList.length,
-          itemScrollController: _itemScrollController,
-          itemPositionsListener: itemPositionsListener,
-          scrollOffsetListener: scrollOffsetListener,
-          itemBuilder: (context, index) {
-            return screensList[index];
-          },
-        ),
+      body: ScrollablePositionedList.builder(
+        physics: const ScrollPhysics(),
+        itemCount: screensList.length,
+        itemScrollController: _itemScrollController,
+        itemPositionsListener: itemPositionsListener,
+        scrollOffsetListener: scrollOffsetListener,
+        itemBuilder: (context, index) {
+          return screensList[index];
+        },
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            scrollTo(index: 0);
+          },
+          child: const Icon(Icons.arrow_upward)),
     );
   }
 
